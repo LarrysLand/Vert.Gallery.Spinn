@@ -1,0 +1,103 @@
+/* Reset and global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #121212;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    color: #e0e0e0;
+}
+
+/* Carousel container */
+.carousel-container {
+    position: relative;
+    width: 200px; /* Uniform size across all devices */
+    height: 350px; /* Matches mobile sizing */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Slider styles */
+.slider {
+    position: relative;
+    width: 200px; /* Uniform size */
+    height: 350px; /* Uniform size */
+    transform-style: preserve-3d;
+    transform: perspective(1500px); /* Balanced perspective */
+    animation: verticalRotate 35s linear infinite; /* Slower rotation speed */
+}
+
+@keyframes verticalRotate {
+    from {
+        transform: perspective(1500px) rotateX(0deg);
+    }
+    to {
+        transform: perspective(1500px) rotateX(-360deg); /* Negative for smooth upward motion */
+    }
+}
+
+.slider .item {
+    position: absolute;
+    inset: 0;
+    transform: 
+        rotateX(calc((var(--position) - 1) * 36deg)) /* 360/10 = 36 degrees per image */
+        translateZ(550px); /* Uniform spacing across all devices */
+}
+
+.slider .item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid #424242;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive styles for tablets */
+@media screen and (max-width: 1023px) {
+    .carousel-container {
+        width: 200px; /* Matches mobile */
+        height: 350px; /* Matches mobile */
+    }
+
+    .slider {
+        width: 200px;
+        height: 350px;
+        animation: verticalRotate 40s linear infinite; /* Slower speed for tablets */
+    }
+
+    .slider .item {
+        transform: 
+            rotateX(calc((var(--position) - 1) * 36deg))
+            translateZ(550px); /* Same spacing */
+    }
+}
+
+/* Responsive styles for mobile devices */
+@media screen and (max-width: 767px) {
+    .carousel-container {
+        width: 200px; /* Matches desktop */
+        height: 350px; /* Matches desktop */
+    }
+
+    .slider {
+        width: 200px;
+        height: 350px;
+        animation: verticalRotate 40s linear infinite; /* Slow and steady */
+    }
+
+    .slider .item {
+        transform: 
+            rotateX(calc((var(--position) - 1) * 36deg))
+            translateZ(550px); /* Consistent spacing */
+    }
+}
